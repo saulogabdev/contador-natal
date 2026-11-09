@@ -8,10 +8,10 @@
 <title>Quanto falta pro Natal?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..800,100;1,9..144,400..800,100&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Silkscreen&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
-/* Layout: a winter night scene. Light garland on top, four hanging ornaments as the countdown,
-   cozy cards below, snowy hills at the base. Single committed dark look (night sky). */
+/* Layout: winter night in pixel art. Pixel garland on top, four pixel ornaments as the countdown,
+   cozy cards below, a pixel village on snowy hills at the base. Single committed dark look. */
 :root {
   --night: #0e2621;
   --night-2: #153831;
@@ -21,16 +21,17 @@
   --berry: #d8423f;
   --berry-deep: #9c2422;
   --gold: #f3c454;
-  --pine: #3f9a6e;
-  --ice: #8fc7e0;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --gold-deep: #a8822b;
+  --line: rgba(248,244,234,.22);
+  --font-display: "Pixelify Sans", "Courier New", monospace;
+  --font-label: "Silkscreen", "Courier New", monospace;
   --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { min-height: 100%; }
 body {
-  background: radial-gradient(120% 80% at 50% 0%, var(--night-3) 0%, var(--night-2) 40%, var(--night) 100%) fixed, var(--night);
+  background: linear-gradient(var(--night-3) 0%, var(--night-2) 35%, var(--night) 100%) fixed, var(--night);
   color: var(--snow);
   font-family: var(--font-body);
   font-size: 16px;
@@ -40,210 +41,172 @@ body {
 #snow { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 
 /* Garland */
-.garland { position: relative; height: 70px; z-index: 2; }
+.garland { position: relative; height: 72px; z-index: 2; }
 .garland svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .bulb {
-  position: absolute; width: 14px; height: 22px; margin-left: -7px;
-  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-  background: var(--c);
-  box-shadow: 0 0 14px 3px var(--c);
-  animation: twinkle 2.4s ease-in-out infinite;
+  position: absolute; width: 15px; height: 24px; margin-left: -7px;
+  background: var(--img) center / 100% 100% no-repeat;
+  filter: drop-shadow(0 0 6px var(--c));
+  animation: twinkle 2.4s steps(1) infinite;
   animation-delay: var(--d);
-  transform: rotate(var(--r));
 }
-.bulb::before {
-  content: ""; position: absolute; top: -5px; left: 3px; width: 8px; height: 7px;
-  background: #4b5a52; border-radius: 2px;
-}
-@keyframes twinkle { 0%,100% { opacity: 1; filter: brightness(1.1); } 50% { opacity: .35; box-shadow: 0 0 4px 0 var(--c); filter: brightness(.7); } }
+@keyframes twinkle { 0%,100% { opacity: 1; } 50% { opacity: .4; filter: none; } }
 
 main {
   position: relative; z-index: 1;
   max-width: 980px; margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 8px 40px;
+  padding-block: 8px 32px;
   display: flex; flex-direction: column; align-items: center; gap: 28px;
   text-align: center;
 }
 
 .eyebrow {
-  font-weight: 800; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+  font-family: var(--font-label); font-size: .8rem; letter-spacing: .06em;
   color: var(--gold);
 }
+.cursor { display: inline-block; width: .6em; height: 1em; background: var(--gold); vertical-align: -2px; margin-left: 4px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
 h1 {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 100;
-  font-weight: 700; font-style: italic;
-  font-size: clamp(2.4rem, 8vw, 4.6rem);
-  line-height: 1.02; margin: 6px 0 0;
+  font-weight: 700;
+  font-size: clamp(2.3rem, 8vw, 4.4rem);
+  line-height: 1.02; margin: 10px 0 0;
   text-wrap: balance;
-  text-shadow: 0 2px 0 rgba(0,0,0,.25);
+  text-shadow: 4px 4px 0 rgba(0,0,0,.35);
 }
-h1 em { color: var(--berry); font-style: italic; }
-.sub { margin: 10px auto 0; max-width: 34rem; color: var(--muted); font-size: 1.05rem; }
+h1 em { color: var(--berry); font-style: normal; }
+.sub { margin: 12px auto 0; max-width: 34rem; color: var(--muted); font-size: 1.05rem; }
 .sub strong { color: var(--snow); }
 
 /* Ornaments */
 .ornaments {
   display: flex; justify-content: center; gap: clamp(8px, 3vw, 34px);
-  width: 100%; margin-top: -4px;
+  width: 100%;
 }
 .hang {
+  --size: clamp(72px, 19vw, 160px);
+  --px: calc(var(--size) / 16);
   display: flex; flex-direction: column; align-items: center;
   transform-origin: 50% 0;
   animation: swing 4.5s ease-in-out infinite;
   animation-delay: var(--d);
 }
 .hang:hover { animation-duration: 1.6s; }
-@keyframes swing { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
-.string { width: 2px; height: var(--len); background: linear-gradient(var(--gold), rgba(243,196,84,.5)); }
-.cap {
-  width: clamp(18px, 4.5vw, 34px); height: clamp(10px, 2.4vw, 16px);
-  background: linear-gradient(90deg, #a8822b, #f6d98a 45%, #a8822b);
-  border-radius: 3px 3px 2px 2px; position: relative; margin-bottom: -2px; z-index: 1;
-}
-.cap::before {
-  content: ""; position: absolute; left: 50%; top: -9px; width: 10px; height: 10px; margin-left: -5px;
-  border: 2px solid var(--gold); border-radius: 50%;
-}
+@keyframes swing { 0%,100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+.string { width: 3px; height: var(--len); background: var(--gold); opacity: .8; }
+.cap { width: calc(var(--px) * 8); height: calc(var(--px) * 5); background: var(--cap) center / 100% 100% no-repeat; margin-bottom: calc(var(--px) * -1.2); position: relative; z-index: 1; }
 .ball {
-  --size: clamp(72px, 19vw, 156px);
-  width: var(--size); height: var(--size); border-radius: 50%;
+  width: var(--size); height: var(--size);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background:
-    radial-gradient(circle at 32% 28%, rgba(255,255,255,.55) 0 6%, rgba(255,255,255,0) 18%),
-    radial-gradient(circle at 50% 50%, var(--hi) 0%, var(--base) 62%, var(--lo) 100%);
-  box-shadow: inset -8px -12px 24px rgba(0,0,0,.35), 0 12px 30px rgba(0,0,0,.35), 0 0 40px -8px var(--base);
-  position: relative;
+  background: var(--img) center / 100% 100% no-repeat;
+  filter: drop-shadow(0 calc(var(--px) * .8) 0 rgba(0,0,0,.3));
+  color: #fffdf6;
 }
-.ball::after { /* decorative band */
-  content: ""; position: absolute; left: 6%; right: 6%; top: 72%; height: 5%;
-  border-radius: 50%; background: rgba(255,255,255,.18);
-}
-.ball.red    { --hi: #f0605b; --base: var(--berry); --lo: var(--berry-deep); }
-.ball.green  { --hi: #5cc08f; --base: #2c7d58; --lo: #134631; }
-.ball.gold   { --hi: #ffe39a; --base: #d9a530; --lo: #8a6312; }
-.ball.blue   { --hi: #b9e2f2; --base: #4f97b8; --lo: #1f526a; }
+.ball.gold { color: #3d2a05; }
 .num {
-  font-family: var(--font-display); font-weight: 800;
-  font-variation-settings: "SOFT" 100, "opsz" 144;
-  font-size: calc(var(--size) * .4); line-height: 1;
-  font-variant-numeric: tabular-nums lining-nums;
-  color: #fffdf6; text-shadow: 0 2px 6px rgba(0,0,0,.35);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: calc(var(--size) * .36); line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: calc(var(--px) * .4) calc(var(--px) * .4) 0 rgba(0,0,0,.35);
+  margin-top: calc(var(--px) * .5);
 }
-.ball.gold .num { color: #3d2a05; text-shadow: 0 1px 0 rgba(255,255,255,.35); }
-.unit {
-  font-weight: 800; font-size: calc(var(--size) * .085); letter-spacing: .12em; text-transform: uppercase;
-  opacity: .92; margin-top: 4px;
-}
-.ball.gold .unit { color: #3d2a05; }
-.pop { animation: pop .35s ease-out; }
-@keyframes pop { 0% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.ball.gold .num { text-shadow: calc(var(--px) * .4) calc(var(--px) * .4) 0 rgba(255,255,255,.35); }
+.unit { font-family: var(--font-label); font-size: calc(var(--size) * .085); margin-top: calc(var(--px) * .4); opacity: .92; }
+.pop { animation: pop .3s steps(3); }
+@keyframes pop { 0% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
 
-.date-line { color: var(--muted); font-size: .98rem; margin-top: -6px; }
+.date-line { color: var(--muted); font-size: .98rem; margin-top: -8px; }
 .date-line b { color: var(--snow); }
 
-/* Cards row */
-.cards {
-  width: 100%;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
-  text-align: left;
+/* Pixel frame: notched corners via stacked shadows */
+.pixel {
+  --bw: 3px;
+  --bc: var(--line);
+  box-shadow:
+    0 calc(var(--bw) * -1) 0 0 var(--bc),
+    0 var(--bw) 0 0 var(--bc),
+    calc(var(--bw) * -1) 0 0 0 var(--bc),
+    var(--bw) 0 0 0 var(--bc);
+  margin: var(--bw);
 }
+
+/* Cards row */
+.cards { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; text-align: left; }
 .card {
   background: rgba(248,244,234,.06);
-  border: 1px solid rgba(248,244,234,.12);
-  border-radius: 18px; padding: 20px;
-  backdrop-filter: blur(4px);
-  min-width: 0;
+  padding: 20px; min-width: 0;
   display: flex; flex-direction: column; gap: 10px;
 }
-.card h2 {
-  margin: 0; font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
-}
-.big {
-  font-family: var(--font-display); font-weight: 700; font-variation-settings: "SOFT" 100;
-  font-size: 2.3rem; line-height: 1; font-variant-numeric: tabular-nums;
-}
+.card h2 { margin: 0; font-family: var(--font-label); font-weight: 400; font-size: .78rem; letter-spacing: .04em; color: var(--gold); }
+.big { font-family: var(--font-display); font-weight: 700; font-size: 2.3rem; line-height: 1; font-variant-numeric: tabular-nums; }
 .card p { margin: 0; color: var(--muted); font-size: .95rem; }
 .card p b { color: var(--snow); }
 
-/* Advent candles */
-.candles { display: flex; align-items: flex-end; gap: 14px; height: 74px; padding-top: 4px; }
+/* Advent candles (pixel) */
+.candles { display: flex; align-items: flex-end; gap: 15px; height: 78px; padding-top: 4px; }
 .candle { display: flex; flex-direction: column; align-items: center; }
-.flame {
-  width: 10px; height: 16px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  background: radial-gradient(circle at 50% 70%, #fff6c8 0 25%, var(--gold) 50%, #f08a2c 100%);
-  box-shadow: 0 0 14px 4px rgba(243,196,84,.55);
-  animation: flicker 1.3s ease-in-out infinite alternate;
-  visibility: hidden;
-}
+.flame { width: 9px; height: 15px; background: var(--flame1) center / 100% 100% no-repeat; visibility: hidden; filter: drop-shadow(0 0 5px rgba(243,196,84,.8)); animation: flicker .5s steps(1) infinite; }
 .candle.lit .flame { visibility: visible; }
-@keyframes flicker { 0% { transform: scaleY(1) rotate(-2deg); } 100% { transform: scaleY(1.15) rotate(2deg); } }
-.wick { width: 2px; height: 5px; background: #2b2b2b; }
-.wax { width: 16px; border-radius: 3px 3px 2px 2px; background: var(--wax); opacity: .55; }
+@keyframes flicker { 0% { background-image: var(--flame1); } 50% { background-image: var(--flame2); } }
+.wick { width: 3px; height: 3px; background: #2b2b2b; }
+.wax { width: 15px; background: linear-gradient(90deg, var(--wax-hi) 0 3px, var(--wax) 3px 12px, var(--wax-lo) 12px); opacity: .45; }
 .candle.lit .wax { opacity: 1; }
 
-/* Candy cane progress */
-.cane {
-  height: 16px; border-radius: 99px; background: rgba(248,244,234,.1); overflow: hidden;
-  border: 1px solid rgba(248,244,234,.15);
-}
+/* Candy cane progress (pixel stripes) */
+.cane { height: 18px; background: rgba(248,244,234,.1); --bc: rgba(248,244,234,.3); }
 .cane-fill {
   height: 100%; width: 0%;
-  background: repeating-linear-gradient(-45deg, var(--berry) 0 10px, var(--snow) 10px 20px);
-  border-radius: 99px;
-  animation: slide 1.6s linear infinite;
-  background-size: 28.28px 28.28px;
-  transition: width .8s ease;
+  background: repeating-linear-gradient(90deg, var(--berry) 0 9px, var(--snow) 9px 18px);
+  animation: slide 1.2s steps(6) infinite;
+  transition: width .8s steps(8);
 }
-@keyframes slide { to { background-position: 28.28px 0; } }
+@keyframes slide { to { background-position: 18px 0; } }
 
-/* Tip / message */
+/* Tip: dialog box */
 .tip {
-  width: 100%; max-width: 640px;
-  display: flex; align-items: center; gap: 14px; text-align: left;
+  width: calc(100% - 6px); max-width: 640px;
+  display: flex; align-items: center; gap: 16px; text-align: left;
   background: var(--snow); color: #2a2a22;
-  border-radius: 16px; padding: 14px 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  padding: 14px 18px;
+  --bc: var(--gold-deep); --bw: 4px;
 }
-.tip .label { font-weight: 800; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--berry-deep); }
-.tip p { margin: 2px 0 0; font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height: 1.3; transition: opacity .4s; }
-.tip svg { flex: none; }
+.tip .label { font-family: var(--font-label); font-size: .72rem; color: var(--berry-deep); }
+.tip p { margin: 2px 0 0; font-weight: 700; font-size: 1.08rem; line-height: 1.35; }
+.tip .icon { flex: none; width: 40px; height: 40px; background: var(--gift) center / 100% 100% no-repeat; }
+.typing::after { content: "▌"; color: var(--berry); animation: blink 1s steps(1) infinite; }
 
 button.bells {
-  font: 800 .95rem var(--font-body);
+  font: 400 .85rem var(--font-label);
   color: var(--night); background: var(--gold);
-  border: 0; border-radius: 99px; padding: 12px 22px;
+  border: 0; padding: 12px 20px;
   cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
-  box-shadow: 0 6px 0 #a8822b, 0 10px 24px rgba(0,0,0,.3);
-  transition: transform .12s, box-shadow .12s;
+  box-shadow: 0 -3px 0 0 var(--gold-deep), 0 3px 0 0 var(--gold-deep), -3px 0 0 0 var(--gold-deep), 3px 0 0 0 var(--gold-deep), 0 9px 0 0 rgba(0,0,0,.35);
+  margin: 3px;
+  transition: transform .08s steps(1);
 }
-button.bells:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #a8822b, 0 14px 28px rgba(0,0,0,.3); }
-button.bells:active { transform: translateY(4px); box-shadow: 0 2px 0 #a8822b, 0 6px 14px rgba(0,0,0,.3); }
-button.bells:focus-visible { outline: 3px solid var(--snow); outline-offset: 3px; }
-button.bells.ringing svg { animation: ring .25s ease-in-out infinite alternate; }
-@keyframes ring { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+button.bells:hover { background: #ffd56e; }
+button.bells:active { transform: translateY(4px); }
+button.bells:focus-visible { outline: 3px dashed var(--snow); outline-offset: 6px; }
+button.bells .icon { width: 20px; height: 20px; background: var(--bell) center / 100% 100% no-repeat; }
+button.bells.ringing .icon { animation: ring .3s steps(2) infinite; }
+@keyframes ring { 0% { transform: rotate(-12deg); } 100% { transform: rotate(12deg); } }
 
-/* Hills */
-.hills { position: relative; z-index: 1; display: block; width: 100%; height: auto; margin-top: -20px; }
+/* Pixel landscape */
+#land { position: relative; z-index: 1; display: block; width: 100%; image-rendering: pixelated; margin-top: -8px; }
 footer {
   position: relative; z-index: 1; background: var(--snow); color: #5b6a62;
   text-align: center; font-size: .85rem;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 4px 22px;
-  margin-top: -2px;
+  padding-block: 2px 22px;
 }
+footer code { font-family: var(--font-label); font-size: .72rem; color: var(--berry-deep); }
 
-/* Celebration */
-.celebrate h1 em { color: var(--gold); }
-
-@media (max-width: 760px) {
-  .cards { grid-template-columns: 1fr; }
-}
+@media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
-  .hang, .bulb, .flame, .cane-fill, .pop { animation: none !important; }
+  .hang, .bulb, .flame, .cane-fill, .pop, .cursor, .typing::after { animation: none !important; }
 }
 </style>
 </head>
@@ -252,14 +215,14 @@ footer {
 <canvas id="snow" aria-hidden="true"></canvas>
 
 <div class="garland" id="garland" aria-hidden="true">
-  <svg preserveAspectRatio="none"><path id="wire" fill="none" stroke="#3a4a42" stroke-width="2"></path></svg>
+  <svg preserveAspectRatio="none" shape-rendering="crispEdges"><path id="wire" fill="none" stroke="#3a4a42" stroke-width="3"></path></svg>
 </div>
 
 <main id="app">
   <header>
-    <div class="eyebrow" id="eyebrow">Contagem regressiva</div>
+    <div class="eyebrow"><span id="eyebrow">&gt; contagem_regressiva</span><span class="cursor" aria-hidden="true"></span></div>
     <h1 id="headline">Quanto falta pro <em>Natal?</em></h1>
-    <p class="sub" id="sub">Pendure a meia, prepare o panetone. Faltam <strong id="sleeps">—</strong> até o Papai Noel passar.</p>
+    <p class="sub" id="sub">Pendure a meia, prepare o panetone. Faltam <strong>—</strong> até o Papai Noel passar.</p>
   </header>
 
   <section class="ornaments" aria-live="polite" aria-label="Tempo restante até o Natal">
@@ -276,64 +239,45 @@ footer {
   <p class="date-line" id="dateLine">Natal: <b>—</b></p>
 
   <section class="cards">
-    <article class="card">
+    <article class="card pixel">
       <h2>Velas do Advento</h2>
       <div class="candles" id="candles" aria-hidden="true"></div>
       <p id="adventText">—</p>
     </article>
-    <article class="card">
+    <article class="card pixel">
       <h2>Do último Natal até este</h2>
       <div class="big" id="pct">0%</div>
-      <div class="cane" role="progressbar" aria-label="Progresso do ano até o Natal" aria-valuemin="0" aria-valuemax="100" id="caneBar"><div class="cane-fill" id="cane"></div></div>
+      <div class="cane pixel" role="progressbar" aria-label="Progresso do ano até o Natal" aria-valuemin="0" aria-valuemax="100" id="caneBar"><div class="cane-fill" id="cane"></div></div>
       <p id="pctText">—</p>
     </article>
-    <article class="card">
+    <article class="card pixel">
       <h2>Ceia de Natal</h2>
       <div class="big" id="ceia">—</div>
-      <p id="ceiaText">Contando até as 20h da véspera, dia 24 de dezembro.</p>
+      <p id="ceiaText">Contando até as 20h da véspera, 24 de dezembro.</p>
     </article>
   </section>
 
-  <div class="tip">
-    <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true">
-      <rect x="6" y="15" width="28" height="21" rx="3" fill="#d8423f"/>
-      <rect x="4" y="11" width="32" height="7" rx="2" fill="#9c2422"/>
-      <rect x="17.5" y="11" width="5" height="25" fill="#f3c454"/>
-      <path d="M20 11c-3-6-10-6-9-2s9 2 9 2zm0 0c3-6 10-6 9-2s-9 2-9 2z" fill="#f3c454"/>
-    </svg>
+  <div class="tip pixel">
+    <div class="icon" aria-hidden="true"></div>
     <div>
       <div class="label">Lembrete natalino</div>
-      <p id="tip">Já sorteou o amigo secreto da família?</p>
+      <p id="tip" aria-live="polite">Já sorteou o amigo secreto da família?</p>
     </div>
   </div>
 
   <button class="bells" id="bells" type="button">
-    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1.5 1.5 0 0 1 1.5 1.5v.3A6 6 0 0 1 18 10.6V15l2 3H4l2-3v-4.4a6 6 0 0 1 4.5-5.8v-.3A1.5 1.5 0 0 1 12 3zm-2.2 16h4.4a2.2 2.2 0 0 1-4.4 0z" fill="currentColor"/></svg>
-    <span id="bellsLabel">Tocar sininhos</span>
+    <span class="icon" aria-hidden="true"></span>
+    <span id="bellsLabel">Tocar sininhos 8-bit</span>
   </button>
 </main>
 
-<svg class="hills" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
-  <path d="M0 120 C 240 40 420 60 640 110 S 1040 30 1440 90 L1440 220 L0 220Z" fill="#dfe9e4"/>
-  <g fill="#1f5a45">
-    <path d="M180 92 l22 0 -11 -40z"/><path d="M176 104 l30 0 -15 -38z"/><rect x="188" y="104" width="6" height="10" fill="#4a3a2a"/>
-    <path d="M1180 62 l26 0 -13 -46z"/><path d="M1175 76 l36 0 -18 -44z"/><rect x="1190" y="76" width="6" height="10" fill="#4a3a2a"/>
-    <path d="M1240 74 l18 0 -9 -32z"/><path d="M1237 84 l24 0 -12 -30z"/><rect x="1246" y="84" width="5" height="8" fill="#4a3a2a"/>
-  </g>
-  <g>
-    <rect x="860" y="54" width="70" height="46" fill="#9c2422"/>
-    <path d="M850 58 L895 22 L940 58Z" fill="#f8f4ea"/>
-    <rect x="884" y="74" width="20" height="26" fill="#5a2d1c"/>
-    <rect x="866" y="64" width="13" height="12" fill="#f3c454"/><rect x="910" y="64" width="13" height="12" fill="#f3c454"/>
-    <rect x="915" y="28" width="10" height="20" fill="#7a3a2a"/>
-  </g>
-  <path d="M0 160 C 300 110 520 130 760 150 S 1180 120 1440 140 L1440 220 L0 220Z" fill="#f8f4ea"/>
-</svg>
-<footer>Feito com chocolate quente e luzinhas piscando. Boas festas! 🎄</footer>
+<canvas id="land" aria-hidden="true"></canvas>
+<footer>Feito com chocolate quente e muito código pela turma de Informática. <code>Boas festas!</code></footer>
 
 <script>
 (function () {
   const $ = (id) => document.getElementById(id);
+  const root = document.documentElement;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MS_DAY = 86400000;
   const monthsPt = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -341,54 +285,106 @@ footer {
   const pad = (n) => String(n).padStart(2, '0');
   const dayIndex = (d) => Math.round(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / MS_DAY);
 
+  /* ---------- Pixel sprite helpers (SVG data URIs, crisp at any size) ---------- */
+  function svgURL(w, h, px) {
+    let r = '';
+    for (const [x, y, c, len] of px) r += `<rect x="${x}" y="${y}" width="${len || 1}" height="1" fill="${c}"/>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges">${r}</svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  }
+  function fromMap(rows, pal) {
+    const px = [];
+    rows.forEach((row, y) => {
+      let x = 0;
+      while (x < row.length) {
+        const ch = row[x];
+        let len = 1;
+        while (x + len < row.length && row[x + len] === ch) len++;
+        if (pal[ch]) px.push([x, y, pal[ch], len]);
+        x += len;
+      }
+    });
+    return svgURL(rows[0].length, rows.length, px);
+  }
+  function ball(p) {
+    const px = [];
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const dx = x + .5 - 8, dy = y + .5 - 8, d = Math.hypot(dx, dy);
+      if (d > 8) continue;
+      let c;
+      if (d > 7) c = p.o;
+      else {
+        const v = ((-dx - dy) / 11) * .7 + (1 - d / 7) * .35;
+        c = v > .42 ? p.h : v > -.12 ? p.b : p.l;
+      }
+      px.push([x, y, c]);
+    }
+    px.push([4, 3, '#ffffff'], [3, 4, '#ffffff'], [4, 4, '#ffffff'], [6, 3, 'rgba(255,255,255,.6)']);
+    return svgURL(16, 16, px);
+  }
+  const balls = {
+    red:   { o: '#5a1414', l: '#9c2422', b: '#d0403c', h: '#ec7466' },
+    green: { o: '#0f3a28', l: '#1f6b48', b: '#2f9466', h: '#66c690' },
+    gold:  { o: '#5e420a', l: '#c08d22', b: '#e6b744', h: '#ffe08a' },
+    blue:  { o: '#173d50', l: '#2f6f8f', b: '#4c98bc', h: '#a2d8ec' }
+  };
+  document.querySelectorAll('.ball').forEach((el) => {
+    const k = Object.keys(balls).find((n) => el.classList.contains(n));
+    el.style.setProperty('--img', ball(balls[k]));
+  });
+  root.style.setProperty('--cap', fromMap(['...oo...', '..o..o..', 'oooooooo', 'oGgGgGgo', 'oooooooo'], { o: '#7a5a14', G: '#f6d98a', g: '#c9992e' }));
+  root.style.setProperty('--flame1', fromMap(['.o.', '.oo', 'oyo', 'oyo', '.r.'], { o: '#f3a53a', y: '#fff2b0', r: '#e0602a' }));
+  root.style.setProperty('--flame2', fromMap(['.o.', 'oo.', 'oyo', 'oyo', '.r.'], { o: '#f3a53a', y: '#fff2b0', r: '#e0602a' }));
+  root.style.setProperty('--gift', fromMap([
+    '...yy..yy...', '..y..yy..y..', '...yyyyyy...', 'RRRRRyyRRRRR', 'RrrrryyrrrrR', 'RRRRRyyRRRRR',
+    '.rrrryyrrrr.', '.rrrryyrrrr.', '.rrrryyrrrr.', '.rrrryyrrrr.', '.rrrryyrrrr.', '.RRRRyyRRRR.'
+  ], { R: '#9c2422', r: '#d8423f', y: '#e6b744' }));
+  root.style.setProperty('--bell', fromMap([
+    '....kk....', '...kkkk...', '..kkkkkk..', '..kkkkkk..', '..kkkkkk..', '.kkkkkkkk.', '.kkkkkkkk.', 'kkkkkkkkkk', '..........', '....kk....'
+  ], { k: '#0e2621' }));
+
   /* ---------- Garland ---------- */
-  const colors = ['#d8423f', '#f3c454', '#3f9a6e', '#8fc7e0', '#f08a9c'];
+  const bulbColors = ['#d8423f', '#f3c454', '#3f9a6e', '#8fc7e0', '#f08a9c'];
+  const bulbImg = bulbColors.map((c) => fromMap(['.sss.', '.sss.', '.ccc.', 'cwccc', 'cwccc', 'ccccc', '.ccc.', '..c..'], { s: '#5d6b63', c, w: 'rgba(255,255,255,.75)' }));
   function buildGarland() {
     const g = $('garland');
     g.querySelectorAll('.bulb').forEach((b) => b.remove());
-    const w = g.clientWidth, h = 70;
+    const w = g.clientWidth, h = 72;
     const swags = Math.max(2, Math.round(w / 260));
     const sw = w / swags;
-    let d = `M0 6`;
+    let d = 'M0 6';
     for (let i = 0; i < swags; i++) d += ` Q ${sw * i + sw / 2} ${h - 6} ${sw * (i + 1)} 6`;
     $('wire').setAttribute('d', d);
     const per = 6;
     let k = 0;
-    for (let i = 0; i < swags; i++) {
-      for (let j = 1; j < per; j++) {
-        const t = j / per;
-        const x = sw * i + sw * t;
-        const y = (1 - t) * (1 - t) * 6 + 2 * (1 - t) * t * (h - 6) + t * t * 6;
-        const slope = 2 * (1 - t) * (h - 12) - 2 * t * (h - 12);
-        const b = document.createElement('span');
-        b.className = 'bulb';
-        b.style.left = x + 'px';
-        b.style.top = (y + 3) + 'px';
-        b.style.setProperty('--c', colors[k % colors.length]);
-        b.style.setProperty('--d', (-(k * 0.37) % 2.4) + 's');
-        b.style.setProperty('--r', (Math.atan2(slope, sw) * 180 / Math.PI * 0.6) + 'deg');
-        g.appendChild(b);
-        k++;
-      }
+    for (let i = 0; i < swags; i++) for (let j = 1; j < per; j++) {
+      const t = j / per;
+      const x = sw * i + sw * t;
+      const y = (1 - t) * (1 - t) * 6 + 2 * (1 - t) * t * (h - 6) + t * t * 6;
+      const b = document.createElement('span');
+      b.className = 'bulb';
+      b.style.left = Math.round(x) + 'px';
+      b.style.top = Math.round(y) + 'px';
+      b.style.setProperty('--img', bulbImg[k % bulbImg.length]);
+      b.style.setProperty('--c', bulbColors[k % bulbColors.length]);
+      b.style.setProperty('--d', (-(k * 0.6) % 2.4).toFixed(1) + 's');
+      g.appendChild(b);
+      k++;
     }
   }
-  buildGarland();
-  let rt;
-  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { buildGarland(); sizeSnow(); }, 150); });
 
-  /* ---------- Snow ---------- */
+  /* ---------- Pixel snow ---------- */
   const cv = $('snow'), ctx = cv.getContext('2d');
   let flakes = [], W = 0, H = 0;
   function sizeSnow() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = window.innerWidth; H = window.innerHeight;
-    cv.width = W * dpr; cv.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.round(Math.min(160, W * H / 9000));
+    cv.width = W; cv.height = H;
+    const count = Math.round(Math.min(150, W * H / 9000));
     flakes = Array.from({ length: count }, () => ({
       x: Math.random() * W, y: Math.random() * H,
-      r: Math.random() * 2.4 + 0.8, s: Math.random() * 0.6 + 0.35,
-      w: Math.random() * Math.PI * 2, o: Math.random() * 0.5 + 0.45
+      size: [2, 2, 3, 4][Math.floor(Math.random() * 4)],
+      cross: Math.random() < .12,
+      s: Math.random() * 0.5 + 0.4, w: Math.random() * 6.28, o: Math.random() * 0.45 + 0.5
     }));
     if (reduce) drawSnow(false);
   }
@@ -396,19 +392,96 @@ footer {
     ctx.clearRect(0, 0, W, H);
     for (const f of flakes) {
       if (move) {
-        f.y += f.s * (f.r * 0.6);
+        f.y += f.s * (f.size * 0.4);
         f.w += 0.01;
-        f.x += Math.sin(f.w) * 0.35;
-        if (f.y > H + 5) { f.y = -5; f.x = Math.random() * W; }
-        if (f.x > W + 5) f.x = -5; else if (f.x < -5) f.x = W + 5;
+        f.x += Math.sin(f.w) * 0.3;
+        if (f.y > H + 6) { f.y = -6; f.x = Math.random() * W; }
+        if (f.x > W + 6) f.x = -6; else if (f.x < -6) f.x = W + 6;
       }
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      const x = Math.round(f.x / 2) * 2, y = Math.round(f.y / 2) * 2;
       ctx.fillStyle = `rgba(255,255,255,${f.o})`;
-      ctx.fill();
+      if (f.cross) {
+        ctx.fillRect(x - 3, y, 9, 3); ctx.fillRect(x, y - 3, 3, 9);
+      } else ctx.fillRect(x, y, f.size, f.size);
     }
   }
-  sizeSnow();
+
+  /* ---------- Pixel landscape ---------- */
+  const land = $('land'), lx = land.getContext('2d');
+  function rand(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+  function drawLand() {
+    const P = 4, LH = 46;
+    const LW = Math.ceil(land.clientWidth / P) || 300;
+    land.width = LW; land.height = LH;
+    land.style.height = LH * P + 'px';
+    const c = lx;
+    c.clearRect(0, 0, LW, LH);
+    const R = (x, y, w, h, col) => { c.fillStyle = col; c.fillRect(x, y, w, h); };
+    const back = (x) => 24 + Math.round(4 * Math.sin(x / 23) + 2 * Math.sin(x / 9 + 1));
+    const front = (x) => 36 + Math.round(2.5 * Math.sin(x / 31) + 1.5 * Math.sin(x / 13));
+
+    for (let x = 0; x < LW; x++) { const y = back(x); R(x, y, 1, LH - y, '#c9dcd5'); R(x, y, 1, 1, '#e4eee9'); }
+
+    const houseX = Math.floor(LW * 0.66);
+    const tree = (x, s) => {
+      const base = back(x) + 1;
+      const tiers = s === 2 ? [[5, 3], [7, 3], [9, 3]] : [[3, 2], [5, 3], [7, 3]];
+      let top = base - 2 - tiers.reduce((a, t) => a + t[1], 0);
+      R(x - 1 + (s === 2 ? 0 : 0), base - 2, 2, 2, '#5a3a24');
+      let y = top;
+      tiers.forEach(([w, h], i) => {
+        for (let r = 0; r < h; r++) {
+          const ww = w - (h - 1 - r) * 2;
+          const wx = x - Math.floor(ww / 2);
+          R(wx, y + r, ww, 1, r === 0 ? '#f8f4ea' : (r === 1 && i > 0 ? '#2a7254' : '#1f5a45'));
+        }
+        y += h;
+      });
+      R(x, top - 1, 1, 1, '#f3c454');
+    };
+    const rnd = rand(7);
+    for (let x = 6; x < LW - 4; x += 14 + Math.floor(rnd() * 26)) {
+      if (Math.abs(x - houseX - 9) < 18) continue;
+      tree(x, rnd() < .5 ? 2 : 1);
+    }
+
+    // house
+    const hb = back(houseX + 9) + 2;
+    R(houseX, hb - 10, 18, 10, '#9c2422');
+    R(houseX, hb - 10, 18, 1, '#7a1c1a');
+    for (let i = 0; i < 7; i++) R(houseX - 1 + i, hb - 11 - i, 20 - i * 2, 1, i === 6 ? '#ffffff' : '#f8f4ea');
+    for (let i = 0; i < 7; i++) R(houseX - 1 + i, hb - 11 - i, 1, 1, '#c9dcd5');
+    R(houseX + 13, hb - 19, 3, 5, '#6b2e22'); R(houseX + 13, hb - 20, 3, 1, '#f8f4ea');
+    R(houseX + 7, hb - 6, 4, 6, '#5a2d1c'); R(houseX + 10, hb - 3, 1, 1, '#f3c454');
+    [[2], [13]].forEach(([wx]) => { R(houseX + wx, hb - 8, 3, 3, '#f3c454'); R(houseX + wx + 1, hb - 8, 1, 3, '#e0a630'); });
+    R(houseX + 7, hb - 9, 4, 1, '#3f9a6e'); R(houseX + 8, hb - 10, 2, 1, '#d8423f');
+
+    for (let x = 0; x < LW; x++) { const y = front(x); R(x, y, 1, LH - y, '#f8f4ea'); R(x, y, 1, 1, '#ffffff'); if ((x * 7) % 11 === 0) R(x, y + 1, 1, 1, '#e3ece8'); }
+
+    // snowman
+    const sx = Math.floor(LW * 0.22), sy = front(sx) + 1;
+    const disc = (cx, cy, r, col, shade) => {
+      for (let y = -r; y <= r; y++) for (let x = -r; x <= r; x++) {
+        if (x * x + y * y <= r * r + r * .6) R(cx + x, cy + y, 1, 1, (x + y > r * .5) ? shade : col);
+      }
+    };
+    disc(sx, sy - 4, 4, '#ffffff', '#d7e3de');
+    disc(sx, sy - 11, 3, '#ffffff', '#d7e3de');
+    R(sx - 1, sy - 12, 1, 1, '#1b1b1b'); R(sx + 1, sy - 12, 1, 1, '#1b1b1b');
+    R(sx + 1, sy - 11, 2, 1, '#f08a2c');
+    R(sx - 3, sy - 8, 7, 1, '#d8423f'); R(sx + 2, sy - 7, 1, 2, '#d8423f');
+    R(sx - 3, sy - 15, 7, 1, '#1b1b1b'); R(sx - 2, sy - 18, 5, 3, '#1b1b1b');
+    R(sx, sy - 5, 1, 1, '#1b1b1b'); R(sx, sy - 3, 1, 1, '#1b1b1b');
+
+    // gift by the snowman
+    const gx = sx + 8, gy = front(gx) + 1;
+    R(gx, gy - 4, 5, 4, '#3f9a6e'); R(gx + 2, gy - 4, 1, 4, '#f3c454'); R(gx, gy - 3, 5, 1, '#f3c454'); R(gx + 1, gy - 5, 1, 1, '#f3c454'); R(gx + 3, gy - 5, 1, 1, '#f3c454');
+  }
+
+  function layout() { buildGarland(); sizeSnow(); drawLand(); }
+  layout();
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
   if (!reduce) (function loop() { drawSnow(true); requestAnimationFrame(loop); })();
 
   /* ---------- Countdown ---------- */
@@ -422,13 +495,17 @@ footer {
     const s4 = new Date(xmas.getFullYear(), 11, 25 - (dow === 0 ? 7 : dow));
     return [21, 14, 7, 0].map((back) => new Date(s4.getFullYear(), s4.getMonth(), s4.getDate() - back));
   }
-  const candleColors = ['#7b4fa0', '#7b4fa0', '#e58fb4', '#7b4fa0'];
-  const candleHeights = [44, 40, 36, 32];
+  const candles = [
+    { wax: '#7b4fa0', hi: '#a77fc8', lo: '#563472', h: 45 },
+    { wax: '#7b4fa0', hi: '#a77fc8', lo: '#563472', h: 39 },
+    { wax: '#e58fb4', hi: '#f6c2d8', lo: '#b9628a', h: 36 },
+    { wax: '#7b4fa0', hi: '#a77fc8', lo: '#563472', h: 30 }
+  ];
   const candleBox = $('candles');
-  candleColors.forEach((c, i) => {
+  candles.forEach((c, i) => {
     const el = document.createElement('div');
     el.className = 'candle';
-    el.innerHTML = `<div class="flame" style="animation-delay:${-i * 0.3}s"></div><div class="wick"></div><div class="wax" style="--wax:${c};height:${candleHeights[i]}px"></div>`;
+    el.innerHTML = `<div class="flame" style="animation-delay:${-i * 0.15}s"></div><div class="wick"></div><div class="wax" style="--wax:${c.wax};--wax-hi:${c.hi};--wax-lo:${c.lo};height:${c.h}px"></div>`;
     candleBox.appendChild(el);
   });
 
@@ -440,8 +517,8 @@ footer {
     el.textContent = val;
     if (!reduce) { el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
   }
-
-  function fmtDate(d) { return `${daysPt[d.getDay()]}, ${d.getDate()} de ${monthsPt[d.getMonth()]} de ${d.getFullYear()}`; }
+  const fmtDate = (d) => `${daysPt[d.getDay()]}, ${d.getDate()} de ${monthsPt[d.getMonth()]} de ${d.getFullYear()}`;
+  const fmtShort = (d) => `${d.getDate()} de ${monthsPt[d.getMonth()]}`;
 
   let celebrating = null;
   function tick() {
@@ -451,8 +528,7 @@ footer {
 
     if (isXmasDay !== celebrating) {
       celebrating = isXmasDay;
-      document.body.classList.toggle('celebrate', isXmasDay);
-      $('eyebrow').textContent = isXmasDay ? 'Chegou o dia!' : 'Contagem regressiva';
+      $('eyebrow').textContent = isXmasDay ? '> natal.exe executado com sucesso' : '> contagem_regressiva';
       $('headline').innerHTML = isXmasDay ? 'Feliz <em>Natal!</em>' : 'Quanto falta pro <em>Natal?</em>';
     }
 
@@ -465,25 +541,21 @@ footer {
       const h = Math.floor(diff / 3600000); diff -= h * 3600000;
       const m = Math.floor(diff / 60000); diff -= m * 60000;
       const s = Math.floor(diff / 1000);
-      setNum('d', String(d));
-      setNum('h', pad(h)); setNum('m', pad(m)); setNum('s', pad(s));
+      setNum('d', String(d)); setNum('h', pad(h)); setNum('m', pad(m)); setNum('s', pad(s));
       const sleeps = dayIndex(xmas) - dayIndex(now);
       const sleepTxt = sleeps === 1 ? 'só 1 noite de sono' : `${sleeps} noites de sono`;
       $('sub').innerHTML = `Pendure a meia, prepare o panetone. Faltam <strong>${sleepTxt}</strong> até o Papai Noel passar.`;
     }
     $('dateLine').innerHTML = `Natal: <b>${fmtDate(xmas)}</b>`;
 
-    // Advent
     const suns = adventSundays(xmas);
     const today = dayIndex(now);
     const lit = suns.filter((s) => dayIndex(s) <= today).length;
     [...candleBox.children].forEach((c, i) => c.classList.toggle('lit', i < lit));
-    const fmtShort = (d) => `${d.getDate()} de ${monthsPt[d.getMonth()]}`;
     if (lit === 0) $('adventText').innerHTML = `O Advento começa no domingo, <b>${fmtShort(suns[0])}</b>. Uma vela acende a cada domingo.`;
     else if (lit < 4) $('adventText').innerHTML = `<b>${lit} de 4</b> velas acesas. A próxima acende no domingo, ${fmtShort(suns[lit])}.`;
-    else $('adventText').innerHTML = `<b>Todas as 4 velas</b> acesas. A vela rosa já brilhou, agora é reta final!`;
+    else $('adventText').innerHTML = `<b>Todas as 4 velas</b> acesas. Agora é reta final!`;
 
-    // Year progress
     const prev = new Date(xmas.getFullYear() - 1, 11, 25);
     const pct = isXmasDay ? 100 : Math.min(100, (now - prev) / (xmas - prev) * 100);
     $('pct').textContent = pct.toFixed(pct >= 99 ? 2 : 1).replace('.', ',') + '%';
@@ -491,7 +563,6 @@ footer {
     $('caneBar').setAttribute('aria-valuenow', pct.toFixed(1));
     $('pctText').innerHTML = `Desde o Natal de ${prev.getFullYear()}, já se passaram <b>${dayIndex(now) - dayIndex(prev)} dias</b>.`;
 
-    // Ceia (Dec 24, 20:00)
     const ceia = new Date(xmas.getFullYear(), 11, 24, 20, 0, 0);
     const toCeia = ceia - now;
     if (isXmasDay) { $('ceia').textContent = 'Já foi!'; $('ceiaText').textContent = 'Hoje é dia de comer as sobras da ceia.'; }
@@ -505,7 +576,7 @@ footer {
   tick();
   setInterval(tick, 1000);
 
-  /* ---------- Rotating tips ---------- */
+  /* ---------- Tips, typed like an RPG dialog ---------- */
   const tips = [
     'Já sorteou o amigo secreto da família?',
     'Panetone com frutas ou chocotone? Escolha seu time.',
@@ -518,13 +589,19 @@ footer {
   ];
   let ti = 0;
   const tipEl = $('tip');
-  setInterval(() => {
-    ti = (ti + 1) % tips.length;
-    tipEl.style.opacity = 0;
-    setTimeout(() => { tipEl.textContent = tips[ti]; tipEl.style.opacity = 1; }, 400);
-  }, 6000);
+  function typeTip(text) {
+    if (reduce) { tipEl.textContent = text; return; }
+    let i = 0;
+    tipEl.classList.add('typing');
+    tipEl.textContent = '';
+    const iv = setInterval(() => {
+      tipEl.textContent = text.slice(0, ++i);
+      if (i >= text.length) { clearInterval(iv); setTimeout(() => tipEl.classList.remove('typing'), 1200); }
+    }, 32);
+  }
+  setInterval(() => { ti = (ti + 1) % tips.length; typeTip(tips[ti]); }, 7000);
 
-  /* ---------- Jingle bells (Web Audio) ---------- */
+  /* ---------- Jingle bells, 8-bit (Web Audio square wave) ---------- */
   const N = { C: 523.25, D: 587.33, E: 659.25, F: 698.46, G: 783.99 };
   const song = [
     ['E',1],['E',1],['E',2], ['E',1],['E',1],['E',2],
@@ -543,30 +620,26 @@ footer {
     playing = true;
     btn.classList.add('ringing');
     $('bellsLabel').textContent = 'Blém, blém, blém…';
-    const beat = 0.26;
+    const beat = 0.24;
     let t = actx.currentTime + 0.05;
-    for (const [n, len] of song) {
-      bell(N[n], t, beat * len);
-      t += beat * len;
-    }
+    for (const [n, len] of song) { chip(N[n], t, beat * len); t += beat * len; }
     setTimeout(() => { playing = false; btn.classList.remove('ringing'); $('bellsLabel').textContent = 'Tocar de novo'; }, (t - actx.currentTime) * 1000 + 300);
   });
-  function bell(freq, t, dur) {
-    const out = actx.createGain();
-    out.gain.setValueAtTime(0.0001, t);
-    out.gain.exponentialRampToValueAtTime(0.22, t + 0.01);
-    out.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(0.5, dur * 1.6));
-    out.connect(actx.destination);
-    [[1, 1], [2.01, 0.35], [3.0, 0.12]].forEach(([mult, vol]) => {
-      const o = actx.createOscillator();
-      const g = actx.createGain();
-      o.type = 'sine';
-      o.frequency.value = freq * mult;
-      g.gain.value = vol;
-      o.connect(g); g.connect(out);
-      o.start(t); o.stop(t + Math.max(0.6, dur * 1.7));
-    });
+  function chip(freq, t, dur) {
+    const g = actx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.07, t + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(0.18, dur * 0.95));
+    g.connect(actx.destination);
+    const o = actx.createOscillator();
+    o.type = 'square'; o.frequency.value = freq;
+    o.connect(g); o.start(t); o.stop(t + dur);
+    const b = actx.createOscillator(), bg = actx.createGain();
+    b.type = 'triangle'; b.frequency.value = freq / 2; bg.gain.value = 0.5;
+    b.connect(bg); bg.connect(g); b.start(t); b.stop(t + dur);
   }
+
+  console.log('%c   *\n  ***\n *****\n*******\n   #\nFeliz Natal, dev! 🎄', 'color:#3f9a6e;font-family:monospace;font-size:14px');
 })();
 </script>
 </body>
