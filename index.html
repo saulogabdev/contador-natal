@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Contagem regressiva até o Natal">
+<meta name="description" content="Contagem regressiva até o Natal do Terceirão de Informática">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Quanto falta pro Natal?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -148,15 +148,19 @@ h1 em { color: var(--berry); font-style: normal; }
 .card p { margin: 0; color: var(--muted); font-size: .95rem; }
 .card p b { color: var(--snow); }
 
-/* Advent candles (pixel) */
-.candles { display: flex; align-items: flex-end; gap: 15px; height: 78px; padding-top: 4px; }
-.candle { display: flex; flex-direction: column; align-items: center; }
-.flame { width: 9px; height: 15px; background: var(--flame1) center / 100% 100% no-repeat; visibility: hidden; filter: drop-shadow(0 0 5px rgba(243,196,84,.8)); animation: flicker .5s steps(1) infinite; }
-.candle.lit .flame { visibility: visible; }
-@keyframes flicker { 0% { background-image: var(--flame1); } 50% { background-image: var(--flame2); } }
-.wick { width: 3px; height: 3px; background: #2b2b2b; }
-.wax { width: 15px; background: linear-gradient(90deg, var(--wax-hi) 0 3px, var(--wax) 3px 12px, var(--wax-lo) 12px); opacity: .45; }
-.candle.lit .wax { opacity: 1; }
+/* Terceirão card: three school years as pixel blocks */
+.card h2.with-icon { display: flex; align-items: center; gap: 10px; }
+.card h2 .cap { flex: none; width: 24px; height: 18px; margin: 0; background: var(--grad) center / 100% 100% no-repeat; }
+.years { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 4px 3px; }
+.yr {
+  --bw: 3px; --bc: rgba(248,244,234,.3);
+  margin: 3px; padding: 10px 4px 8px; text-align: center;
+  font-family: var(--font-label); font-size: .72rem; line-height: 1.3;
+  background: rgba(63,154,110,.35); color: var(--snow);
+}
+.yr span { display: block; font-size: 1.05rem; color: var(--gold); }
+.yr.now { background: rgba(243,196,84,.18); --bc: var(--gold); animation: blinkBorder 1.2s steps(1) infinite; }
+@keyframes blinkBorder { 50% { --bc: rgba(243,196,84,.35); } }
 
 /* Candy cane progress (pixel stripes) */
 .cane { height: 18px; background: rgba(248,244,234,.1); --bc: rgba(248,244,234,.3); }
@@ -223,9 +227,9 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
 
 <main id="app">
   <header>
-    <div class="eyebrow"><span id="eyebrow">&gt; contagem_regressiva</span><span class="cursor" aria-hidden="true"></span></div>
+    <div class="eyebrow"><span id="eyebrow">&gt; terceirao_info.exe</span><span class="cursor" aria-hidden="true"></span></div>
     <h1 id="headline">Quanto falta pro <em>Natal?</em></h1>
-    <p class="sub" id="sub">Pendure a meia, prepare o panetone. Faltam <strong>—</strong> até o Papai Noel passar.</p>
+    <p class="sub" id="sub">O último Natal do Terceirão de Informática no IF. Faltam <strong>—</strong> até o Papai Noel passar.</p>
   </header>
 
   <section class="ornaments" aria-live="polite" aria-label="Tempo restante até o Natal">
@@ -243,9 +247,13 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
 
   <section class="cards">
     <article class="card pixel">
-      <h2>Velas do Advento</h2>
-      <div class="candles" id="candles" aria-hidden="true"></div>
-      <p id="adventText">—</p>
+      <h2 class="with-icon"><span class="cap" aria-hidden="true"></span>Terceirão de Informática</h2>
+      <div class="years" role="img" aria-label="1º ano concluído, 2º ano concluído, 3º ano na reta final">
+        <div class="yr pixel"><span>✔</span>1º ano</div>
+        <div class="yr pixel"><span>✔</span>2º ano</div>
+        <div class="yr pixel now"><span>▶</span>3º ano</div>
+      </div>
+      <p>Três anos de IF, muitas linhas de código e um <b>último Natal juntos</b> como turma. Bora fazer valer!</p>
     </article>
     <article class="card pixel">
       <h2>Do último Natal até este</h2>
@@ -263,8 +271,8 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
   <div class="tip pixel">
     <div class="icon" aria-hidden="true"></div>
     <div>
-      <div class="label">Lembrete natalino</div>
-      <p id="tip" aria-live="polite">Já sorteou o amigo secreto da família?</p>
+      <div class="label">Recado do Terceirão</div>
+      <p id="tip" aria-live="polite">Último Natal como Terceirão de Informática. Aproveita cada momento!</p>
     </div>
   </div>
 
@@ -274,7 +282,7 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
   </button>
 </main>
 
-<footer id="footer">Feito com chocolate quente e muito código pela turma de Informática. <code>Boas festas!</code></footer>
+<footer id="footer">Feito com chocolate quente e muito código pelo Terceirão de Informática. <code>Valeu, IF!</code></footer>
 
 <script>
 (function () {
@@ -335,6 +343,9 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
     el.style.setProperty('--img', ball(balls[k]));
   });
   root.style.setProperty('--cap', fromMap(['...oo...', '..o..o..', 'oooooooo', 'oGgGgGgo', 'oooooooo'], { o: '#7a5a14', G: '#f6d98a', g: '#c9992e' }));
+  root.style.setProperty('--grad', fromMap([
+    '....kkkk....', '..kkkkkkkk..', 'kkkkkkkkkkkk', '..kkkkkkkky.', '...kkkkkk.y.', '...kkkkkk.y.', '....kkkk..yy', '..........yy'
+  ], { k: '#f8f4ea', y: '#f3c454' }));
   root.style.setProperty('--flame1', fromMap(['.o.', '.oo', 'oyo', 'oyo', '.r.'], { o: '#f3a53a', y: '#fff2b0', r: '#e0602a' }));
   root.style.setProperty('--flame2', fromMap(['.o.', 'oo.', 'oyo', 'oyo', '.r.'], { o: '#f3a53a', y: '#fff2b0', r: '#e0602a' }));
   root.style.setProperty('--gift', fromMap([
@@ -619,25 +630,6 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
     if (now >= new Date(y, 11, 26)) y++;
     return new Date(y, 11, 25);
   }
-  function adventSundays(xmas) {
-    const dow = xmas.getDay();
-    const s4 = new Date(xmas.getFullYear(), 11, 25 - (dow === 0 ? 7 : dow));
-    return [21, 14, 7, 0].map((back) => new Date(s4.getFullYear(), s4.getMonth(), s4.getDate() - back));
-  }
-  const candles = [
-    { wax: '#7b4fa0', hi: '#a77fc8', lo: '#563472', h: 45 },
-    { wax: '#7b4fa0', hi: '#a77fc8', lo: '#563472', h: 39 },
-    { wax: '#e58fb4', hi: '#f6c2d8', lo: '#b9628a', h: 36 },
-    { wax: '#7b4fa0', hi: '#a77fc8', lo: '#563472', h: 30 }
-  ];
-  const candleBox = $('candles');
-  candles.forEach((c, i) => {
-    const el = document.createElement('div');
-    el.className = 'candle';
-    el.innerHTML = `<div class="flame" style="animation-delay:${-i * 0.15}s"></div><div class="wick"></div><div class="wax" style="--wax:${c.wax};--wax-hi:${c.hi};--wax-lo:${c.lo};height:${c.h}px"></div>`;
-    candleBox.appendChild(el);
-  });
-
   const last = {};
   function setNum(id, val) {
     if (last[id] === val) return;
@@ -657,13 +649,13 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
 
     if (isXmasDay !== celebrating) {
       celebrating = isXmasDay;
-      $('eyebrow').textContent = isXmasDay ? '> natal.exe executado com sucesso' : '> contagem_regressiva';
+      $('eyebrow').textContent = isXmasDay ? '> natal.exe executado com sucesso' : '> terceirao_info.exe';
       $('headline').innerHTML = isXmasDay ? 'Feliz <em>Natal!</em>' : 'Quanto falta pro <em>Natal?</em>';
     }
 
     if (isXmasDay) {
       ['d', 'h', 'm', 's'].forEach((id) => setNum(id, '00'));
-      $('sub').innerHTML = 'O Papai Noel já passou por aqui. Aproveite a família, os presentes e o resto do peru!';
+      $('sub').innerHTML = 'Feliz Natal, Terceirão! Obrigado por esses três anos de IF. Aproveitem a família, os presentes e o resto do peru!';
     } else {
       let diff = Math.max(0, xmas - now);
       const d = Math.floor(diff / MS_DAY); diff -= d * MS_DAY;
@@ -673,17 +665,9 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
       setNum('d', String(d)); setNum('h', pad(h)); setNum('m', pad(m)); setNum('s', pad(s));
       const sleeps = dayIndex(xmas) - dayIndex(now);
       const sleepTxt = sleeps === 1 ? 'só 1 noite de sono' : `${sleeps} noites de sono`;
-      $('sub').innerHTML = `Pendure a meia, prepare o panetone. Faltam <strong>${sleepTxt}</strong> até o Papai Noel passar.`;
+      $('sub').innerHTML = `O último Natal do Terceirão de Informática no IF. Faltam <strong>${sleepTxt}</strong> até o Papai Noel passar.`;
     }
     $('dateLine').innerHTML = `Natal: <b>${fmtDate(xmas)}</b>`;
-
-    const suns = adventSundays(xmas);
-    const today = dayIndex(now);
-    const lit = suns.filter((s) => dayIndex(s) <= today).length;
-    [...candleBox.children].forEach((c, i) => c.classList.toggle('lit', i < lit));
-    if (lit === 0) $('adventText').innerHTML = `O Advento começa no domingo, <b>${fmtShort(suns[0])}</b>. Uma vela acende a cada domingo.`;
-    else if (lit < 4) $('adventText').innerHTML = `<b>${lit} de 4</b> velas acesas. A próxima acende no domingo, ${fmtShort(suns[lit])}.`;
-    else $('adventText').innerHTML = `<b>Todas as 4 velas</b> acesas. Agora é reta final!`;
 
     const prev = new Date(xmas.getFullYear() - 1, 11, 25);
     const pct = isXmasDay ? 100 : Math.min(100, (now - prev) / (xmas - prev) * 100);
@@ -707,14 +691,14 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
 
   /* ---------- Tips, typed like an RPG dialog ---------- */
   const tips = [
-    'Já sorteou o amigo secreto da família?',
-    'Panetone com frutas ou chocotone? Escolha seu time.',
-    'Hora de tirar a árvore e o pisca-pisca do armário.',
-    'Escreva sua cartinha pro Papai Noel com antecedência.',
-    'Rabanada fica mais gostosa com bastante canela.',
-    'Separe um presente pra doar a quem precisa.',
-    'Já combinou quem leva o pavê na ceia? (É pavê ou pacomê?)',
-    'Coloque uma música natalina e embrulhe os presentes.'
+    'Último Natal como Terceirão de Informática. Aproveita cada momento!',
+    'Amigo secreto do Terceirão: já sabe quem você tirou?',
+    'Três anos de IF passaram mais rápido que um ping na rede local.',
+    'git commit -m "último Natal do Terceirão"',
+    'Já tirou a foto da turma com gorro de Papai Noel?',
+    'Saudade é o único bug que não tem correção.',
+    'Que o próximo ano compile sem erros pra todo mundo do Terceirão!',
+    'Valeu, IF! Feliz Natal, Terceirão de Informática!'
   ];
   let ti = 0;
   const tipEl = $('tip');
@@ -768,7 +752,7 @@ footer code { font-family: var(--font-label); font-size: .72rem; color: var(--be
     b.connect(bg); bg.connect(g); b.start(t); b.stop(t + dur);
   }
 
-  console.log('%c   *\n  ***\n *****\n*******\n   #\nFeliz Natal, dev! 🎄', 'color:#3f9a6e;font-family:monospace;font-size:14px');
+  console.log('%c   *\n  ***\n *****\n*******\n   #\nFeliz Natal, Terceirão de Informática! 🎄', 'color:#3f9a6e;font-family:monospace;font-size:14px');
 })();
 </script>
 </body>
